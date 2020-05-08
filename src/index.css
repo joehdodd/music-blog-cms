@@ -8,11 +8,22 @@ body {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="submit"] {
   font-size: 18px;
   padding: 12px 8px;
   border: none;
   outline: none;
   border-radius: 4px;
+}
+
+input[type="text"],
+input[type="password"] {
   background-color: #f1f2f5;
+}
+
+input[type="submit"] {
+  background-color: #3f3f3f;
+  color: #f1f2f5;
+  cursor: pointer;
 }

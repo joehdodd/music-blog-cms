@@ -1,13 +1,32 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login, onChange } from '../../state/actions/auth';
 import Login from './Login';
 import './Login.css';
 
 class LoginContainer extends React.Component {
-  handleInputChange = e => {
+  checkAuth = () => {
+    const { isAuthenticated, location, history } = this.props;
+    const from = location.state || { pathname: '/' };
+    if (isAuthenticated) {
+      history.push(from.pathname);
+    }
+  };
+  componentDidMount() {
+    this.checkAuth();
+  }
+  componentDidUpdate() {
+    this.checkAuth();
+  }
+  handleInputChange = (e) => {
     const { onChange } = this.props;
     onChange(e.target.name, e.target.value);
+  };
+  handleLogin = (e) => {
+    e.preventDefault();
+    const { handleLogin } = this.props;
+    handleLogin();
   };
   render() {
     const { username, password } = this.props;
@@ -17,6 +36,7 @@ class LoginContainer extends React.Component {
           username={username}
           password={password}
           onChange={this.handleInputChange}
+          login={this.handleLogin}
         />
       </div>
     );
@@ -28,13 +48,14 @@ const mapStateToProps = (state) => {
   return {
     username: auth.inputValues.username,
     password: auth.inputValues.password,
+    isAuthenticated: auth.isAuthenticated,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleLogin: (username, password) => {
-      dispatch(login(username, password));
+    handleLogin: () => {
+      dispatch(login());
     },
     onChange: (name, value) => {
       dispatch(onChange(name, value));
@@ -42,4 +63,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+);

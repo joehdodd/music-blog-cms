@@ -4,7 +4,7 @@ export default (
       username: '',
       password: '',
     },
-    isAuthenticated: false,
+    isAuthenticated: !!localStorage.getItem('user'),
   },
   action
 ) => {
@@ -16,6 +16,11 @@ export default (
           ...state.inputValues,
           [action.name]: action.value,
         },
+      };
+    case 'SET_AUTH':
+      return {
+        ...state,
+        isAuthenticated: action.auth,
       };
     default:
       return state;
