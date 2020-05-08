@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import Login from './components/Login';
 
-function App() {
+function PrivateRoute({ children, isAuthenticated, ...rest }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isAuthenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
   );
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <Switch>
+        <PrivateRoute path="/" exact isAuthenticated={false}>
+          <div> 
+            <h1>CMS</h1>
+          </div>
+        </PrivateRoute>
+        <Route
+          path="/login"
+          component={Login}
+        />
+      </Switch>
+    );
+  }
 }
 
 export default App;
