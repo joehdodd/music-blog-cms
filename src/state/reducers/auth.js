@@ -1,10 +1,17 @@
+const checkAuth = () => {
+  const date = new Date();
+  return !!localStorage.getItem('session')
+    ? JSON.parse(localStorage.getItem('session')) > date.getTime()
+    : false;
+};
+
 export default (
   state = {
     inputValues: {
       username: '',
       password: '',
     },
-    isAuthenticated: !!localStorage.getItem('user'),
+    isAuthenticated: checkAuth(),
   },
   action
 ) => {

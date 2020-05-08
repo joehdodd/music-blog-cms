@@ -20,12 +20,12 @@ export const login = () => {
     try {
       const { username, password } = getState().auth.inputValues;
       const {
-        data: { user },
+        data: { session },
       } = await API('/session', {
         method: 'POST',
         data: { username, password },
       });
-      localStorage.setItem('user', user.id);
+      localStorage.setItem('session', session);
       dispatch(setAuth(true));
     } catch (e) {
       console.log(e);

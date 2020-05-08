@@ -1,25 +1,28 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class PrivateRoute extends React.Component {
   checkAuth = () => {
-    const { isAuthenticated, history, location } = this.props;
-    if (!isAuthenticated) {
-      history.push('/login', { from: location });
-    }
+    const { isAuthenticated } = this.props;
+    return isAuthenticated;
   };
-  componentDidMount() {
-    this.checkAuth();
-  }
-  componentDidUpdate() {
-    this.checkAuth();
-  }
   render() {
-    const { isAuthenticated, children, history, location } = this.props;
-    return isAuthenticated
-      ? children
-      : history.push('/login', { from: location });
+    const { private: Private }= this.props;
+    return (
+      <Route
+        {...this.props}
+        render={(props) =>
+          this.checkAuth() ? (
+            <Private {...props} />
+          ) : (
+            <Redirect
+              to={{ pathname: '/login', state: { from: props.location } }}
+            />
+          )
+        }
+      />
+    );
   }
 }
 
