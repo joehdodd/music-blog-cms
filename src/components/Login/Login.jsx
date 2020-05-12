@@ -2,7 +2,7 @@ import React from 'react';
 
 export default ({ username, password, onChange, login }) => (
   <div className="login-container">
-    <div className="login-card">
+    <div className="card">
       <h1>
         <span role="img" aria-label="Headphones Emoji">
           🎧

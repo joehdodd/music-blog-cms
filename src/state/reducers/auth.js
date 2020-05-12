@@ -1,7 +1,7 @@
-const checkAuth = () => {
+const checkAuth = key => {
   const date = new Date();
-  return !!localStorage.getItem('session')
-    ? JSON.parse(localStorage.getItem('session')) > date.getTime()
+  return !!localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key)) > date.getTime()
     : false;
 };
 
@@ -11,7 +11,8 @@ export default (
       username: '',
       password: '',
     },
-    isAuthenticated: checkAuth(),
+    isAuthenticated: checkAuth('session'),
+    spotifyAuthorized: checkAuth('spotifySession'),
   },
   action
 ) => {
@@ -28,6 +29,11 @@ export default (
       return {
         ...state,
         isAuthenticated: action.auth,
+      };
+    case 'SET_SPOTIFY_AUTH':
+      return {
+        ...state,
+        spotifyAuthorized: action.auth,
       };
     default:
       return state;

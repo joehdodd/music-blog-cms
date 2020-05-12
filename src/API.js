@@ -13,6 +13,9 @@ const APIInstance = axios.create({
 export default (endpoint, options) => {
   return APIInstance.request({
     url: endpoint,
-    ...options
+    ...options,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   }).then(res => res);
 };
