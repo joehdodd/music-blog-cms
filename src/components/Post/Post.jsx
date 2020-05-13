@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default (props) => {
-  return <div className="card">{props.children}</div>;
+  return <div className="card post-container">{props.children}</div>;
 };

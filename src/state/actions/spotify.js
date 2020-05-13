@@ -32,3 +32,8 @@ export const searchSpotify = (query) => {
     }
   };
 };
+
+export const setSpotifyItem = (item) => ({
+  type: 'SET_SPOTIFY_ITEM',
+  item,
+});

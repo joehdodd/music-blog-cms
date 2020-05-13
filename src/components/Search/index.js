@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchSpotify, onChange } from '../../state/actions/spotify';
+import {
+  searchSpotify,
+  onChange,
+  setSpotifyItem,
+} from '../../state/actions/spotify';
 import Search from './Search';
 import SearchResults from './SearchResults';
+import _ from 'lodash';
 
 import './Search.css';
-
 class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -13,21 +17,28 @@ class SearchContainer extends React.Component {
       showList: false,
     };
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchQuery && !this.props.searchQuery) {
+      this.setState({ showList: false });
+    }
+  }
   handleInputChange = (e) => {
     const { onChange } = this.props;
     onChange(e.target.name, e.target.value);
   };
-  handleSearch = () => {
+  handleSearchDebounce = _.debounce(() => {
     const { searchQuery } = this.props;
-    this.setState({ showList: true });
-    this.props.searchSpotify(searchQuery);
-  };
+    if (searchQuery) {
+      this.props.searchSpotify(searchQuery);
+      this.setState({ showList: true });
+    }
+  }, 500);
   handleItemClick = (item) => {
-    console.log(item);
     this.setState({ showList: false });
+    console.log(JSON.stringify(item))
+    this.props.setSpotifyItem(item)
   };
-  handleBlur = () => {
-    console.log('frrrprprprprprp');
+  handleClickOutside = () => {
     this.setState({ showList: false });
   };
   render() {
@@ -43,14 +54,15 @@ class SearchContainer extends React.Component {
         <Search
           searchQuery={searchQuery}
           onChange={this.handleInputChange}
+          handleSearch={this.handleSearchDebounce}
           resultsStyle={showList}
         />
         <SearchResults
           items={items}
           showList={showList}
           handleItemClick={this.handleItemClick}
+          handleClickOutside={this.handleClickOutside}
         />
-        <button onClick={this.handleSearch}>Search</button>
       </div>
     );
   }
@@ -71,6 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     searchSpotify: (query) => {
       dispatch(searchSpotify(query));
+    },
+    setSpotifyItem: (item) => {
+      dispatch(setSpotifyItem(item));
     },
   };
 };

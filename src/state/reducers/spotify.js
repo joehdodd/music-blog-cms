@@ -1,4 +1,5 @@
 // const mockResults = require('./mockResults.json');
+const mockItem = require('./mockItem.json');
 
 export default (
   state = {
@@ -10,6 +11,8 @@ export default (
       },
     },
     searchError: false,
+    // selectedItem: mockItem,
+    selectedItem: null,
   },
   action
 ) => {
@@ -28,6 +31,11 @@ export default (
       return {
         ...state,
         searchQuery: action.value,
+      };
+    case 'SET_SPOTIFY_ITEM':
+      return {
+        ...state,
+        selectedItem: action.item,
       };
     default:
       return state;

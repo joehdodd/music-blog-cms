@@ -4,6 +4,11 @@
   position: relative;
 }
 
+/* .search-container input:first-of-type {
+  background-color: #3f3f3f;
+  color: #f1f2f5;
+} */
+
 .search-results-wrapper {
   width: stretch;
   display: grid;
