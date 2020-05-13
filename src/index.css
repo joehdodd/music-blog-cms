@@ -5,9 +5,34 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f1f2f5;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input[type='text'],
+input[type='password'],
+input[type='submit'] {
+  font-size: 18px;
+  padding: 12px 8px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+input[type='text'],
+input[type='password'] {
+  background-color: #f1f2f5;
+}
+
+input[type='submit'] {
+  background-color: #3f3f3f;
+  color: #f1f2f5;
+  cursor: pointer;
+}
+
+.card {
+  text-align: center;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.25);
 }

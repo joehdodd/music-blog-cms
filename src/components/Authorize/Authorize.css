@@ -1,0 +1,17 @@
+.authorize-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  align-items: center;
+}
+
+.authorize-container {
+  padding: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .authorize-container {
+    width: 50%;
+    justify-self: center;
+  }
+}
