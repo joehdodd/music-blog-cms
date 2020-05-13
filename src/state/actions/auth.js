@@ -19,21 +19,23 @@ const setSpotifyAuth = (auth) => {
   return {
     type: 'SET_SPOTIFY_AUTH',
     auth,
-  }
-}
+  };
+};
 
 export const login = () => {
   return async (dispatch, getState) => {
     try {
       const { username, password } = getState().auth.inputValues;
       const {
-        data: { session },
+        data: { session, spotifySession },
       } = await API('/session', {
         method: 'POST',
         data: { username, password },
       });
       localStorage.setItem('session', session);
+      localStorage.setItem('spotifySession', spotifySession);
       dispatch(setAuth(true));
+      dispatch(setSpotifyAuth(spotifySession));
     } catch (e) {
       console.log(e);
     }
@@ -55,11 +57,10 @@ export const spotifyAuthorize = () => {
   };
 };
 
-
-export const spotifyToken = code => {
+export const spotifyToken = (code) => {
   return async (dispatch) => {
     try {
-      const { 
+      const {
         data: { spotifySession },
       } = await API(`/spotify/token/${code}`, {
         method: 'GET',
@@ -69,5 +70,5 @@ export const spotifyToken = code => {
     } catch (e) {
       console.log('ERROR!!!!', e);
     }
-  }
-}
+  };
+};

@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Post from './Post';
+import SearchContainer from '../Search';
+import PostForm from './PostForm';
 
 import './Post.css';
 
@@ -15,7 +17,12 @@ class PostContainer extends React.Component {
   render() {
     return (
       <div className="post-wrapper">
-        <Post />
+        <div className="container">
+          <Post>
+            <SearchContainer />
+            <PostForm />
+          </Post>
+        </div>
       </div>
     );
   }

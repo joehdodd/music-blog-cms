@@ -7,9 +7,14 @@ import './Login.css';
 
 class LoginContainer extends React.Component {
   checkAuth = () => {
-    const { isAuthenticated, location, history } = this.props;
+    const {
+      isAuthenticated,
+      spotifyAuthorized,
+      location,
+      history,
+    } = this.props;
     const from = location.state || { pathname: '/' };
-    if (isAuthenticated) {
+    if (isAuthenticated && spotifyAuthorized !== null) {
       history.push(from.pathname);
     }
   };
@@ -49,6 +54,7 @@ const mapStateToProps = (state) => {
     username: auth.inputValues.username,
     password: auth.inputValues.password,
     isAuthenticated: auth.isAuthenticated,
+    spotifyAuthorized: auth.spotifyAuthorized,
   };
 };
 

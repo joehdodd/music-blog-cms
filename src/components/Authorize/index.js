@@ -11,13 +11,13 @@ class AuthorizeContainer extends React.Component {
       spotifyAuthorized,
       location: { search },
     } = this.props;
-    if (!spotifyAuthorized && !search) {
+    if (spotifyAuthorized) {
+      this.props.history.push('/');
+    } else if (!spotifyAuthorized && !search) {
       this.props.spotifyAuthorize();
     } else if (!spotifyAuthorized && search) {
       const code = search.split('=')[1];
       this.props.spotifyToken(code);
-    } else if (spotifyAuthorized) {
-      this.props.history.push('/');
     }
   }
   componentDidUpdate(prevProps) {
@@ -36,7 +36,6 @@ class AuthorizeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   const { auth } = state;
-  console.log(auth);
   return {
     spotifyAuthorized: auth.spotifyAuthorized,
   };

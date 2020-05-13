@@ -7,9 +7,9 @@ export default () => {
   const middlewareEnhancer = applyMiddleware(...middleWares);
 
   const enhancers = [middlewareEnhancer];
-  const composedEnahncers = compose(...enhancers);
+  const composedEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  const store = createStore(root, composedEnahncers);
+  const store = createStore(root, composedEnhancers(...enhancers));
 
   return store;
 };
