@@ -11,8 +11,8 @@ export default (
       },
     },
     searchError: false,
-    // selectedItem: mockItem,
-    selectedItem: null,
+    selectedItem: mockItem,
+    // selectedItem: null,
   },
   action
 ) => {

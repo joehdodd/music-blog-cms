@@ -10,14 +10,21 @@ import './Post.css';
 
 const SpotifyItemData = ({ item }) => {
   return (
-    <div className="post-data">
+    <div
+      className="post-data"
+      style={{
+        backgroundImage: `
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url(${item.album.images[0].url})
+        `,
+      }}
+    >
       <div className="post-data-header">
-        <img src={item.album.images[1].url} alt={item.name} />
-        <div>
-          <h2>{item.name}</h2>
+        <h2>{item.name}</h2>
+        <div style={{ lineHeight: '20px' }}>
           <h3>{item.album.name}</h3>
           {item.artists.map((artist, i) => (
-            <span key={i}>{artist.name}</span>
+            <h4 key={i}>{artist.name}</h4>
           ))}
         </div>
       </div>

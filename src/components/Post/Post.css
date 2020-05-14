@@ -20,18 +20,19 @@
 
 .post-data {
   display: grid;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  padding: 8px;
 }
 
 .post-data-header {
   display: grid;
-  grid-template-columns: 128px 1fr;
   grid-gap: 4px;
-  align-self: start;
-}
-
-.post-data-header img {
-  max-width: 128px;
-  border-radius: 4px;
+  color: #fff;
+  width: stretch;
 }
 
 .post-data-header h2,
@@ -41,20 +42,19 @@
 }
 
 .post-data-header h2 {
-  font-size: 20px;
-  font-style: italic;
+  font-size: 48px;
 }
 
 .post-data-header h3 {
-  font-size: 16px;
+  font-size: 28px;
 }
 
 .post-data-header h4 {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 @media screen and (min-width: 768px) {
-  .post-data-container { 
-    grid-template-columns: 1fr .95fr;
+  .post-data-container {
+    grid-template-columns: 1fr 0.95fr;
   }
 }
