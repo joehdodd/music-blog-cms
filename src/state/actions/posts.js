@@ -7,3 +7,19 @@ export const onChange = (name, value) => {
     value,
   };
 };
+
+export const createPost = (post) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await API('/post', {
+        method: 'POST',
+        data: {
+          ...post,
+        },
+      });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { onChange } from '../../state/actions/posts';
+import { onChange, createPost } from '../../state/actions/posts';
 import Post from './Post';
 import SearchContainer from '../Search';
 import PostForm from './PostForm';
@@ -40,10 +40,10 @@ class PostContainer extends React.Component {
     const post = {
       name: selectedItem.name,
       spotifyId: selectedItem.id,
-      ...inputValues
+      ...inputValues,
     };
-    console.log(post)
-  }
+    this.props.createPost(post);
+  };
   render() {
     const { selectedItem, inputValues } = this.props;
     const postHasValues =
@@ -62,7 +62,9 @@ class PostContainer extends React.Component {
               />
               {selectedItem && <SpotifyItemData item={selectedItem} />}
             </div>
-            <button disabled={!postHasValues} onClick={this.handlePost}>Post</button>
+            <button disabled={!postHasValues} onClick={this.handlePost}>
+              Post
+            </button>
           </Post>
         </div>
       </div>
@@ -83,6 +85,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChange: (name, value) => {
       dispatch(onChange(name, value));
+    },
+    createPost: (post) => {
+      dispatch(createPost(post));
     },
   };
 };

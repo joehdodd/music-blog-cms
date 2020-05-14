@@ -32,10 +32,9 @@ class SearchContainer extends React.Component {
       this.props.searchSpotify(searchQuery);
       this.setState({ showList: true });
     }
-  }, 500);
+  }, 250);
   handleItemClick = (item) => {
     this.setState({ showList: false });
-    console.log(JSON.stringify(item))
     this.props.setSpotifyItem(item)
   };
   handleClickOutside = () => {
