@@ -46,7 +46,8 @@ class PostContainer extends React.Component {
     const { selectedItem, inputValues } = this.props;
     const post = {
       name: selectedItem.name,
-      spotifyId: selectedItem.id,
+      externalId: selectedItem.id,
+      type: selectedItem.type,
       ...inputValues,
     };
     this.props.createPost(post);
